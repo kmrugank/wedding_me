@@ -1391,6 +1391,299 @@
       }
     }
 
+    /* Royal motion system — layered, mobile-first and entirely decorative. */
+    .royal-veil {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      pointer-events: none;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .royal-veil::before,
+    .royal-veil::after {
+      content: "";
+      position: absolute;
+      inset-block: 0;
+      width: 51%;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.07), transparent 14% 86%, rgba(255,255,255,.08)),
+        repeating-linear-gradient(90deg, transparent 0 18px, rgba(255,255,255,.025) 18px 20px),
+        linear-gradient(155deg, #3d172d, #6f2947 50%, #381326);
+      box-shadow: inset -14px 0 40px rgba(20, 4, 13, .24);
+      will-change: transform;
+    }
+
+    .royal-veil::before { left: 0; transform-origin: left center; }
+    .royal-veil::after { right: 0; transform-origin: right center; }
+
+    .royal-veil-crest {
+      position: relative;
+      z-index: 2;
+      width: 92px;
+      height: 92px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(244, 211, 145, .72);
+      border-radius: 50%;
+      color: #f4d391;
+      background: radial-gradient(circle, #6f2947, #3d172d);
+      box-shadow: 0 0 0 9px rgba(244, 211, 145, .08), 0 18px 50px rgba(18, 3, 12, .38);
+      font-family: "Italiana", Georgia, serif;
+      font-size: 1.45rem;
+      letter-spacing: .08em;
+    }
+
+    .royal-motion .royal-veil::before { animation: curtainLeft 1.65s .55s cubic-bezier(.76, 0, .2, 1) forwards; }
+    .royal-motion .royal-veil::after { animation: curtainRight 1.65s .55s cubic-bezier(.76, 0, .2, 1) forwards; }
+    .royal-motion .royal-veil-crest { animation: sealReveal 2.05s cubic-bezier(.22, 1, .36, 1) forwards; }
+
+    .royal-thread {
+      position: fixed;
+      top: 18%;
+      right: 7px;
+      width: 2px;
+      height: 64%;
+      z-index: 40;
+      border-radius: 2px;
+      background: rgba(184, 134, 59, .14);
+      pointer-events: none;
+      opacity: .8;
+    }
+
+    .royal-thread::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: scaleY(var(--royal-progress, 0));
+      transform-origin: top;
+      border-radius: inherit;
+      background: linear-gradient(#f5d995, #b8863b 55%, #b85f77);
+      box-shadow: 0 0 10px rgba(184, 134, 59, .55);
+    }
+
+    .royal-thread::after {
+      content: "✦";
+      position: absolute;
+      left: 50%;
+      top: calc(var(--royal-progress, 0) * 100%);
+      transform: translate(-50%, -50%) rotate(45deg);
+      color: var(--gold);
+      font-size: 11px;
+      text-shadow: 0 0 10px rgba(184, 134, 59, .7);
+    }
+
+    .royal-mote {
+      position: fixed;
+      z-index: 3;
+      width: var(--mote-size, 4px);
+      height: var(--mote-size, 4px);
+      border-radius: 50%;
+      background: #f4d391;
+      box-shadow: 0 0 10px rgba(244, 211, 145, .85);
+      opacity: 0;
+      pointer-events: none;
+      animation: royalMote var(--mote-duration, 8s) var(--mote-delay, 0s) ease-in-out infinite;
+    }
+
+    .royal-motion .hero::before {
+      content: "";
+      position: absolute;
+      width: 78vmin;
+      height: 78vmin;
+      top: 44%;
+      left: 50%;
+      border: 1px solid rgba(184, 134, 59, .16);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 0 7vmin rgba(184,134,59,.035), 0 0 0 14vmin rgba(184,134,59,.025);
+      animation: royalHalo 12s linear infinite;
+      pointer-events: none;
+    }
+
+    .royal-motion .hero-monogram,
+    .royal-motion .hero-kicker,
+    .royal-motion .names > span,
+    .royal-motion .hero-line,
+    .royal-motion .hero-meta,
+    .royal-motion .hero .cta-row,
+    .royal-motion .scroll-cue {
+      opacity: 0;
+      animation: courtEntrance .9s cubic-bezier(.2, .8, .2, 1) forwards;
+    }
+
+    .royal-motion .hero-monogram { animation-name: crestEntrance; animation-delay: 1.7s; }
+    .royal-motion .hero-kicker { animation-delay: 1.82s; }
+    .royal-motion .names > span:nth-child(1) { animation-delay: 1.94s; }
+    .royal-motion .names > span:nth-child(2) { animation-delay: 2.06s; }
+    .royal-motion .names > span:nth-child(3) { animation-delay: 2.18s; }
+    .royal-motion .hero-line { animation-delay: 2.3s; }
+    .royal-motion .hero-meta { animation-delay: 2.42s; }
+    .royal-motion .hero .cta-row { animation-delay: 2.54s; }
+    .royal-motion .scroll-cue { animation-delay: 2.72s; }
+
+    .royal-motion .hero-monogram::before,
+    .royal-motion .hero-monogram::after {
+      content: "";
+      position: absolute;
+      inset: -11px;
+      border: 1px dashed rgba(184, 134, 59, .34);
+      border-radius: 50%;
+      animation: orbitSpin 18s linear infinite;
+    }
+
+    .royal-motion .hero-monogram::after {
+      inset: -19px;
+      border-style: solid;
+      border-color: rgba(184,134,59,.18) transparent;
+      animation-direction: reverse;
+      animation-duration: 12s;
+    }
+
+    .royal-motion .heart-mark {
+      position: relative;
+      animation: heartbeat 2.8s 3.1s ease-in-out infinite;
+    }
+
+    .section-title,
+    .venue-name,
+    .closing-title,
+    .event-name {
+      --heading-ink: var(--plum);
+      background-image: linear-gradient(105deg, var(--heading-ink) 0 42%, #cf9f4f 49%, var(--heading-ink) 56% 100%);
+      background-size: 230% 100%;
+      background-position: 100% 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    .venue-name { --heading-ink: #fff; }
+
+    .is-visible .section-title,
+    .is-visible .venue-name,
+    .is-visible .closing-title,
+    .is-visible .event-name {
+      animation: titleGild 8s .25s cubic-bezier(.22, 1, .36, 1) infinite;
+    }
+
+    .js .reveal {
+      opacity: 0;
+      filter: blur(8px);
+      clip-path: inset(7% 0 7% 0 round 28px);
+      transform: translateY(42px) scale(.975);
+      transition: opacity 1s cubic-bezier(.22, 1, .36, 1),
+                  transform 1.15s cubic-bezier(.22, 1, .36, 1),
+                  filter 1s ease,
+                  clip-path 1.15s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .js .reveal.is-visible {
+      opacity: 1;
+      filter: blur(0);
+      clip-path: inset(0 0 0 0 round 0);
+      transform: translateY(0) scale(1);
+    }
+
+    .portrait-card.is-visible { transform-origin: 40% 100%; }
+    .portrait-card.is-visible .portrait-photo { animation: portraitAwaken 2.4s .1s cubic-bezier(.22, 1, .36, 1) both; }
+
+    .event-card::before,
+    .countdown-card::before {
+      content: "";
+      position: absolute;
+      inset: -80% -40%;
+      z-index: 0;
+      pointer-events: none;
+      background: linear-gradient(110deg, transparent 42%, rgba(255,255,255,.52) 49%, transparent 56%);
+      transform: translateX(-45%) rotate(8deg);
+    }
+
+    .event-card.is-visible::before,
+    .countdown-card.is-visible::before { animation: cardBlessing 2s .55s ease-out both; }
+
+    .event-icon { animation: jewelFloat 4.6s ease-in-out infinite; }
+
+    .time-number.tick { animation: numberTurn .42s cubic-bezier(.22, 1, .36, 1); }
+
+    .venue-panel.is-visible .venue-scene { animation: venueAwaken 2.2s cubic-bezier(.22, 1, .36, 1) both; }
+    .closing-card.is-visible .closing-floral.one { animation: floralProcessionLeft 1.8s cubic-bezier(.22, 1, .36, 1) both, floralBreathe 5s 1.8s ease-in-out infinite; }
+    .closing-card.is-visible .closing-floral.two { animation: floralProcessionRight 1.8s cubic-bezier(.22, 1, .36, 1) both, floralBreathe 5s 1.8s ease-in-out infinite; }
+
+    .button::after {
+      content: "✦";
+      position: absolute;
+      left: var(--spark-x, 50%);
+      top: var(--spark-y, 50%);
+      color: #ffe9b3;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(.2) rotate(0);
+      pointer-events: none;
+    }
+
+    .button.royal-tap::after { animation: buttonSpark .65s ease-out; }
+
+    @keyframes curtainLeft { to { transform: translateX(-104%) skewX(-4deg); } }
+    @keyframes curtainRight { to { transform: translateX(104%) skewX(4deg); } }
+    @keyframes sealReveal {
+      0% { opacity: 0; transform: scale(.58) rotate(-16deg); }
+      28%, 54% { opacity: 1; transform: scale(1) rotate(0); }
+      100% { opacity: 0; transform: scale(.76) rotate(18deg); }
+    }
+    @keyframes courtEntrance {
+      from { opacity: 0; filter: blur(10px); transform: translateY(24px) scale(.96); }
+      to { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
+    }
+    @keyframes crestEntrance {
+      0% { opacity: 0; transform: translateY(18px) scale(.45) rotate(-12deg); }
+      70% { opacity: 1; transform: translateY(-4px) scale(1.08) rotate(2deg); }
+      100% { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+    }
+    @keyframes royalHalo { to { transform: translate(-50%, -50%) rotate(360deg); } }
+    @keyframes royalMote {
+      0%, 100% { opacity: 0; transform: translate3d(0, 18px, 0) scale(.5); }
+      24% { opacity: .78; }
+      70% { opacity: .32; }
+      82% { opacity: 0; transform: translate3d(18px, -100px, 0) scale(1.2); }
+    }
+    @keyframes titleGild {
+      0% { background-position: 100% 0; }
+      18%, 99.8% { background-position: 0 0; }
+      100% { background-position: 100% 0; }
+    }
+    @keyframes portraitAwaken {
+      from { transform: scale(1.09); filter: saturate(.75) sepia(.12); }
+      to { transform: scale(1.002); filter: saturate(1) sepia(0); }
+    }
+    @keyframes cardBlessing { from { transform: translateX(-45%) rotate(8deg); } to { transform: translateX(65%) rotate(8deg); } }
+    @keyframes jewelFloat { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-7px) rotate(3deg); } }
+    @keyframes numberTurn { 0% { transform: perspective(160px) rotateX(0); } 48% { opacity: .2; transform: perspective(160px) rotateX(70deg); } 100% { opacity: 1; transform: perspective(160px) rotateX(0); } }
+    @keyframes venueAwaken { from { transform: scale(1.13); filter: brightness(.72) saturate(.72); } to { transform: scale(1.04); filter: brightness(1) saturate(1); } }
+    @keyframes floralProcessionLeft { from { opacity: 0; transform: translate(-55px, -35px) rotate(-24deg) scale(.75); } to { opacity: .88; transform: translate(0, 0) rotate(-10deg) scale(1); } }
+    @keyframes floralProcessionRight { from { opacity: 0; transform: translate(55px, 35px) rotate(186deg) scale(.75); } to { opacity: .88; transform: translate(0, 0) rotate(170deg) scale(1); } }
+    @keyframes buttonSpark { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.2) rotate(0); } 35% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(2.6) rotate(135deg); } }
+
+    @media (max-width: 640px) {
+      .royal-thread { right: 4px; opacity: .58; }
+      .royal-mote:nth-of-type(odd) { display: none; }
+      .royal-motion .hero::before { width: 92vmin; height: 92vmin; }
+      .royal-veil-crest { width: 78px; height: 78px; font-size: 1.25rem; }
+      .event-card::before, .countdown-card::before { inset: -100% -90%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .royal-veil, .royal-thread, .royal-mote { display: none !important; }
+      .section-title, .venue-name, .closing-title, .event-name {
+        background: none;
+        color: inherit;
+        -webkit-text-fill-color: currentColor;
+      }
+      .js .reveal { filter: none; clip-path: none; }
+    }
+
   </style>
 </head>
 <body>
@@ -1750,6 +2043,69 @@
         var mediaQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
         var reducedMotion = !!(mediaQuery && mediaQuery.matches);
 
+        /* Ceremonial opening and the fine gold thread that follows the guest
+           through the invitation. These are created only when motion is welcome. */
+        if (!reducedMotion) {
+          document.documentElement.classList.add('royal-motion');
+
+          var royalVeil = document.createElement('div');
+          royalVeil.className = 'royal-veil';
+          royalVeil.setAttribute('aria-hidden', 'true');
+          royalVeil.innerHTML = '<span class="royal-veil-crest">M·S</span>';
+          document.body.appendChild(royalVeil);
+          window.setTimeout(function () {
+            if (royalVeil && royalVeil.parentNode) {
+              royalVeil.parentNode.removeChild(royalVeil);
+            }
+          }, 2500);
+
+          var royalThread = document.createElement('div');
+          royalThread.className = 'royal-thread';
+          royalThread.setAttribute('aria-hidden', 'true');
+          document.body.appendChild(royalThread);
+
+          var moteCount = window.innerWidth < 640 ? 7 : 12;
+          for (var m = 0; m < moteCount; m += 1) {
+            var mote = document.createElement('i');
+            mote.className = 'royal-mote';
+            mote.setAttribute('aria-hidden', 'true');
+            mote.style.left = (5 + Math.random() * 90) + '%';
+            mote.style.top = (18 + Math.random() * 76) + '%';
+            mote.style.setProperty('--mote-size', (2 + Math.random() * 3) + 'px');
+            mote.style.setProperty('--mote-duration', (7 + Math.random() * 7) + 's');
+            mote.style.setProperty('--mote-delay', (-Math.random() * 10) + 's');
+            document.body.appendChild(mote);
+          }
+
+          var progressTicking = false;
+          function updateRoyalThread() {
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+            var scrollRange = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+            var progress = Math.max(0, Math.min(1, scrollTop / scrollRange));
+            royalThread.style.setProperty('--royal-progress', String(progress));
+            progressTicking = false;
+          }
+          updateRoyalThread();
+          window.addEventListener('scroll', function () {
+            if (!progressTicking) {
+              (window.requestAnimationFrame || window.setTimeout)(updateRoyalThread);
+              progressTicking = true;
+            }
+          }, false);
+
+          var royalButtons = document.querySelectorAll('.button');
+          for (var b = 0; b < royalButtons.length; b += 1) {
+            royalButtons[b].addEventListener('click', function (event) {
+              var rect = this.getBoundingClientRect();
+              this.style.setProperty('--spark-x', (event.clientX ? event.clientX - rect.left : rect.width / 2) + 'px');
+              this.style.setProperty('--spark-y', (event.clientY ? event.clientY - rect.top : rect.height / 2) + 'px');
+              this.classList.remove('royal-tap');
+              void this.offsetWidth;
+              this.classList.add('royal-tap');
+            }, false);
+          }
+        }
+
         /* Decorative petals. Written in broadly compatible JavaScript so it also
            runs in older mobile browsers and embedded web views. */
         var petalField = document.getElementById('petalField');
@@ -1841,6 +2197,18 @@
           return value < 10 ? '0' + value : String(value);
         }
 
+        function setTimeUnit(element, value) {
+          if (element.textContent === value) {
+            return;
+          }
+          element.textContent = value;
+          if (!reducedMotion) {
+            element.classList.remove('tick');
+            void element.offsetWidth;
+            element.classList.add('tick');
+          }
+        }
+
         function updateCountdown() {
           if (!daysEl || !hoursEl || !minutesEl || !secondsEl || !countdownNote) {
             return;
@@ -1849,10 +2217,10 @@
           var distance = weddingDate - new Date().getTime();
 
           if (distance <= 0) {
-            daysEl.textContent = '00';
-            hoursEl.textContent = '00';
-            minutesEl.textContent = '00';
-            secondsEl.textContent = '00';
+            setTimeUnit(daysEl, '00');
+            setTimeUnit(hoursEl, '00');
+            setTimeUnit(minutesEl, '00');
+            setTimeUnit(secondsEl, '00');
             countdownNote.textContent = 'The celebration has begun. Today, forever starts.';
             return;
           }
@@ -1862,10 +2230,10 @@
           var minutes = Math.floor((distance % 3600000) / 60000);
           var seconds = Math.floor((distance % 60000) / 1000);
 
-          daysEl.textContent = pad(days);
-          hoursEl.textContent = pad(hours);
-          minutesEl.textContent = pad(minutes);
-          secondsEl.textContent = pad(seconds);
+          setTimeUnit(daysEl, pad(days));
+          setTimeUnit(hoursEl, pad(hours));
+          setTimeUnit(minutesEl, pad(minutes));
+          setTimeUnit(secondsEl, pad(seconds));
         }
 
         updateCountdown();
