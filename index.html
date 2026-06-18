@@ -1422,23 +1422,63 @@
     .royal-veil-crest {
       position: relative;
       z-index: 2;
-      width: 92px;
-      height: 92px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(244, 211, 145, .72);
-      border-radius: 50%;
+      width: min(72vw, 310px);
+      aspect-ratio: 1;
+      padding: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 224, 156, .88);
+      border-radius: 30px;
       color: #f4d391;
-      background: radial-gradient(circle, #6f2947, #3d172d);
-      box-shadow: 0 0 0 9px rgba(244, 211, 145, .08), 0 18px 50px rgba(18, 3, 12, .38);
-      font-family: "Italiana", Georgia, serif;
-      font-size: 1.45rem;
-      letter-spacing: .08em;
+      background: linear-gradient(145deg, #ffe6a9, #a96f21 44%, #f6cf72 70%, #6f3d12);
+      box-shadow:
+        0 0 0 8px rgba(244, 211, 145, .09),
+        0 0 52px rgba(255, 187, 67, .28),
+        0 26px 70px rgba(18, 3, 12, .52);
+      isolation: isolate;
     }
 
-    .royal-motion .royal-veil::before { animation: curtainLeft 1.65s .55s cubic-bezier(.76, 0, .2, 1) forwards; }
-    .royal-motion .royal-veil::after { animation: curtainRight 1.65s .55s cubic-bezier(.76, 0, .2, 1) forwards; }
-    .royal-motion .royal-veil-crest { animation: sealReveal 2.05s cubic-bezier(.22, 1, .36, 1) forwards; }
+    .royal-veil-crest::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      z-index: 2;
+      border: 1px solid rgba(255, 232, 179, .66);
+      border-radius: 24px;
+      box-shadow: inset 0 0 28px rgba(25, 1, 9, .24);
+      pointer-events: none;
+    }
+
+    .royal-veil-crest::after {
+      content: "M  ·  S";
+      position: absolute;
+      z-index: 3;
+      left: 50%;
+      bottom: 15px;
+      transform: translateX(-50%);
+      padding: 5px 15px 4px;
+      border: 1px solid rgba(255, 225, 159, .68);
+      border-radius: 999px;
+      color: #ffe8b0;
+      background: rgba(61, 12, 24, .78);
+      box-shadow: 0 8px 22px rgba(22, 2, 8, .34);
+      backdrop-filter: blur(8px);
+      font-family: "Italiana", Georgia, serif;
+      font-size: .82rem;
+      letter-spacing: .18em;
+      white-space: nowrap;
+    }
+
+    .royal-veil-portrait {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      border-radius: 24px;
+    }
+
+    .royal-motion .royal-veil::before { animation: curtainLeft 1.8s .72s cubic-bezier(.76, 0, .2, 1) forwards; }
+    .royal-motion .royal-veil::after { animation: curtainRight 1.8s .72s cubic-bezier(.76, 0, .2, 1) forwards; }
+    .royal-motion .royal-veil-crest { animation: sealReveal 2.72s cubic-bezier(.22, 1, .36, 1) forwards; }
 
     .royal-thread {
       position: fixed;
@@ -1630,7 +1670,7 @@
     @keyframes curtainRight { to { transform: translateX(104%) skewX(4deg); } }
     @keyframes sealReveal {
       0% { opacity: 0; transform: scale(.58) rotate(-16deg); }
-      28%, 54% { opacity: 1; transform: scale(1) rotate(0); }
+      16%, 74% { opacity: 1; transform: scale(1) rotate(0); }
       100% { opacity: 0; transform: scale(.76) rotate(18deg); }
     }
     @keyframes courtEntrance {
@@ -1670,7 +1710,8 @@
       .royal-thread { right: 4px; opacity: .58; }
       .royal-mote:nth-of-type(odd) { display: none; }
       .royal-motion .hero::before { width: 92vmin; height: 92vmin; }
-      .royal-veil-crest { width: 78px; height: 78px; font-size: 1.25rem; }
+      .royal-veil-crest { width: min(76vw, 286px); border-radius: 26px; }
+      .royal-veil-portrait, .royal-veil-crest::before { border-radius: 20px; }
       .event-card::before, .countdown-card::before { inset: -100% -90%; }
     }
 
@@ -2051,13 +2092,13 @@
           var royalVeil = document.createElement('div');
           royalVeil.className = 'royal-veil';
           royalVeil.setAttribute('aria-hidden', 'true');
-          royalVeil.innerHTML = '<span class="royal-veil-crest">M·S</span>';
+          royalVeil.innerHTML = '<span class="royal-veil-crest"><img class="royal-veil-portrait" src="royal-curtain-portrait.jpg" alt="" /></span>';
           document.body.appendChild(royalVeil);
           window.setTimeout(function () {
             if (royalVeil && royalVeil.parentNode) {
               royalVeil.parentNode.removeChild(royalVeil);
             }
-          }, 2500);
+          }, 3200);
 
           var royalThread = document.createElement('div');
           royalThread.className = 'royal-thread';
